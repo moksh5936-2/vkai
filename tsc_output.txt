@@ -1,0 +1,36 @@
+.next/types/validator.ts(144,31): error TS2344: Type 'typeof import("/Users/moksh/Project/VKlaunch /app/api/chat/sessions/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/chat/sessions/[id]">'.
+  Types of property 'GET' are incompatible.
+    Type '(req: Request, { params }: { params: { id: string; }; }) => Promise<NextResponse<{ messages: { id: string; role: string; createdAt: Date; userId: string; content: string; intent: string | null; sessionId: string; isGenerated: boolean; }[]; } & { ...; }> | NextResponse<...>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
+.next/types/validator.ts(216,31): error TS2344: Type 'typeof import("/Users/moksh/Project/VKlaunch /app/api/saved/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/saved/[id]">'.
+  Types of property 'DELETE' are incompatible.
+    Type '(req: Request, { params }: { params: { id: string; }; }) => Promise<NextResponse<{ success: boolean; }> | NextResponse<{ error: any; }>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
+.next/types/validator.ts(243,31): error TS2344: Type 'typeof import("/Users/moksh/Project/VKlaunch /app/api/tasks/[id]/toggle/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/tasks/[id]/toggle">'.
+  Types of property 'POST' are incompatible.
+    Type '(req: Request, { params }: { params: { id: string; }; }) => Promise<NextResponse<{ id: string; createdAt: Date; userId: string; title: string; description: string; stage: string; completed: boolean; priority: number; }> | NextResponse<...>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
+app/api/chat/upload/route.ts(30,26): error TS2349: This expression is not callable.
+  Type 'typeof import("/Users/moksh/Project/VKlaunch /node_modules/pdf-parse/dist/pdf-parse/esm/index")' has no call signatures.
+lib/agents/businessModel.ts(1,71): error TS2307: Cannot find module '../lib/mistral' or its corresponding type declarations.
+lib/agents/financialProjections.ts(2,10): error TS2459: Module '"../agentRouter"' declares 'AgentResponse' locally, but it is not exported.
+lib/agents/generalChat.ts(2,10): error TS2459: Module '"../agentRouter"' declares 'AgentResponse' locally, but it is not exported.
+lib/agents/ideaValidator.ts(2,10): error TS2459: Module '"../agentRouter"' declares 'AgentResponse' locally, but it is not exported.
+lib/agents/investorMatcher.ts(2,10): error TS2459: Module '"../agentRouter"' declares 'AgentResponse' locally, but it is not exported.
+lib/agents/mentorMode.ts(2,10): error TS2459: Module '"../agentRouter"' declares 'AgentResponse' locally, but it is not exported.
+lib/agents/pitchDeckGenerator.ts(2,10): error TS2459: Module '"../agentRouter"' declares 'AgentResponse' locally, but it is not exported.
+lib/startupJourneyEngine.ts(37,5): error TS2322: Type 'Partial<{ id: string; createdAt: Date; updatedAt: Date; userId: string; stage: JourneyStage; readinessScore: number | null; validationData: JsonValue; researchData: JsonValue; feedbackLogs: JsonValue; feedbackLoopCount: number; }>' is not assignable to type '(Without<StartupJourneyUpdateInput, StartupJourneyUncheckedUpdateInput> & StartupJourneyUncheckedUpdateInput) | (Without<...> & StartupJourneyUpdateInput)'.
+  Type 'Partial<{ id: string; createdAt: Date; updatedAt: Date; userId: string; stage: JourneyStage; readinessScore: number | null; validationData: JsonValue; researchData: JsonValue; feedbackLogs: JsonValue; feedbackLoopCount: number; }>' is not assignable to type 'Without<StartupJourneyUncheckedUpdateInput, StartupJourneyUpdateInput> & StartupJourneyUpdateInput'.
+    Type 'Partial<{ id: string; createdAt: Date; updatedAt: Date; userId: string; stage: JourneyStage; readinessScore: number | null; validationData: JsonValue; researchData: JsonValue; feedbackLogs: JsonValue; feedbackLoopCount: number; }>' is not assignable to type 'Without<StartupJourneyUncheckedUpdateInput, StartupJourneyUpdateInput>'.
+      Types of property 'userId' are incompatible.
+        Type 'string | undefined' is not assignable to type 'undefined'.
+          Type 'string' is not assignable to type 'undefined'.
