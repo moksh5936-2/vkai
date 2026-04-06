@@ -28,7 +28,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           }
 
           // Verify Firebase token
-          const decodedToken = await adminAuth.verifyIdToken(credentials.idToken as string);
+          const decodedToken = await adminAuth.verifyIdToken(credentials.idToken as string, false);
           if (!decodedToken) {
             console.warn("Auth Error: Token verification failed (returned null).");
             return null;
@@ -49,47 +49,52 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           // Create user if they don't exist
           if (!user) {
             const role = (credentials.role as Role) || Role.FOUNDER;
+            const referralCode = `VK-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
             
-            // Create user with initial credits and subscription
-            user = await prisma.user.create({
-              data: {
-                email,
-                name: decodedToken.name || email.split("@")[0],
-                image: decodedToken.picture,
-                role: role,
-                isVerified: decodedToken.email_verified || false,
-                credits: {
-                  create: {
-                    chatCredits: 5,
-                    pitchCredits: 1,
-                    pitchDeckCredits: 0,
+            try {
+              // Create user with initial credits and subscription
+              user = await prisma.user.create({
+                data: {
+                  email,
+                  name: decodedToken.name || email.split("@")[0],
+                  image: decodedToken.picture,
+                  role: role,
+                  isVerified: decodedToken.email_verified || false,
+                  referralCode,
+                  credits: {
+                    create: {
+                      chatCredits: 5,
+                      pitchCredits: 1,
+                      pitchDeckCredits: 0,
+                    },
                   },
-                },
-                subscription: {
-                  create: {
-                    plan: "FREE",
-                    status: "ACTIVE",
-                    currentPeriodStart: new Date(),
+                  subscription: {
+                    create: {
+                      plan: "FREE",
+                      status: "ACTIVE",
+                      currentPeriodStart: new Date(),
+                    },
                   },
-                },
-                notifications: {
-                  create: {
-                    type: "WELCOME",
-                    title: "Welcome to VKai!",
-                    message: "We're excited to help you launch your startup vision. Start by validating an idea!",
+                  notifications: {
+                    create: {
+                      type: "WELCOME",
+                      title: "Welcome to VKai!",
+                      message: "We're excited to help you launch your startup vision. Start by validating an idea!",
+                    },
                   },
-                },
-                transactions: {
-                  createMany: {
-                    data: [
+                  transactions: {
+                    create: [
                       { type: "GRANT", creditType: "CHAT", amount: 5, description: "Welcome bonus" },
                       { type: "GRANT", creditType: "PITCH", amount: 1, description: "Welcome bonus" },
                     ],
                   },
                 },
-              },
-              include: { subscription: true, credits: true },
-            });
+                include: { subscription: true, credits: true },
+              });
+            } catch (createError: any) {
+              console.error("Auth: Failed to create user in Prisma:", createError);
+              throw new Error(`Account creation failed: ${createError.message}`);
+            }
 
             // Handle referrals
             if (credentials.referralCode) {
