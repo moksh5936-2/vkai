@@ -11,7 +11,7 @@ export default auth((req) => {
   const isAdmin = req.nextUrl.pathname.startsWith("/admin");
 
   if ((isDashboard || isAdmin) && !isAuth) {
-    return NextResponse.redirect(new URL("/auth/login", req.url));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   // Admin protection

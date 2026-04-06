@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const session = await auth();
-  if (!session?.user?.id) redirect("/auth/login");
+  if (!session?.user?.id) redirect("/login");
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
@@ -20,7 +20,7 @@ export default async function DashboardPage() {
     },
   });
 
-  if (!user) redirect("/auth/login");
+  if (!user) redirect("/login");
 
   const role = user.role;
 
@@ -138,7 +138,7 @@ export default async function DashboardPage() {
           <div className="flex items-center justify-between mb-8">
             <p className="text-center mt-10 text-xs text-white/40">
               Don&apos;t have an account?{" "}
-              <Link href="/auth/signup" className="text-[#FF3CAC] font-bold hover:underline">
+              <Link href="/signup" className="text-[#FF3CAC] font-bold hover:underline">
                 Sign up for free
               </Link>
             </p>

@@ -119,7 +119,7 @@ export default function Homepage() {
             transition={{ delay: 0.2 }}
             className="flex flex-col md:flex-row items-center justify-center gap-4"
           >
-            <Link href="/auth/signup" className="btn-primary w-full md:w-auto text-lg px-12 py-5">
+            <Link href="/signup" className="btn-primary w-full md:w-auto text-lg px-12 py-5">
               Get Started Free →
             </Link>
             <Link href="/ecosystem" className="btn-ghost w-full md:w-auto text-lg px-12 py-5">
@@ -197,7 +197,7 @@ export default function Homepage() {
               Join a network of elite founders, investors, and expert AI agents. 
               Start building for free today.
             </p>
-            <Link href="/auth/signup" className="btn-primary inline-block text-xl px-16 py-6">
+            <Link href="/signup" className="btn-primary inline-block text-xl px-16 py-6">
               Get Started Free →
             </Link>
           </div>

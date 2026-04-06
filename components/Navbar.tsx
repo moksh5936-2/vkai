@@ -50,10 +50,10 @@ export default function Navbar() {
             </Link>
           ))}
           <div className="flex items-center gap-4 ml-4">
-            <Link href="/auth/login" className="btn-ghost !py-2 !px-6 text-sm">
+            <Link href="/login" className="btn-ghost !py-2 !px-6 text-sm">
               Sign In
             </Link>
-            <Link href="/auth/signup" className="btn-primary !py-2 !px-6 text-sm">
+            <Link href="/signup" className="btn-primary !py-2 !px-6 text-sm">
               Get Started
             </Link>
           </div>
@@ -102,10 +102,10 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="flex flex-col gap-4 pt-4 border-t border-white/5">
-                <Link href="/auth/login" className="text-center py-3 rounded-full border border-white/10 font-medium">
+                <Link href="/login" className="text-center py-3 rounded-full border border-white/10 font-medium">
                   Sign In
                 </Link>
-                <Link href="/auth/signup" className="text-center py-3 rounded-full bg-gradient-to-r from-[#7B2FFF] to-[#FF3CAC] font-bold">
+                <Link href="/signup" className="text-center py-3 rounded-full bg-gradient-to-r from-[#7B2FFF] to-[#FF3CAC] font-bold">
                   Get Started Free
                 </Link>
               </div>
