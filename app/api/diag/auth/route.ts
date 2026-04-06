@@ -25,12 +25,15 @@ export async function GET() {
     status: {
       firebase_initialized: !!adminAuth,
       database_reachable: false,
+      db_user_count: 0,
+      server_time: new Date().toISOString(),
     }
   };
 
   try {
     await prisma.$queryRaw`SELECT 1`;
     diag.status.database_reachable = true;
+    diag.status.db_user_count = await prisma.user.count();
   } catch (err) {
     console.error("Diagnostic DB Failure:", err);
   }
