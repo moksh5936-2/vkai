@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { Role } from "@prisma/client";
 import { authConfig } from "./auth.config";
 import { adminAuth } from "./firebase-admin";
 import prisma from "./prisma";
@@ -47,7 +48,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           // Create user if they don't exist
           if (!user) {
-            const role = (credentials.role as any) || "FOUNDER";
+            const role = (credentials.role as Role) || Role.FOUNDER;
             
             // Create user with initial credits and subscription
             user = await prisma.user.create({

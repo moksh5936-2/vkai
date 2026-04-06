@@ -18,7 +18,7 @@ export function useFirebaseAuth() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleAuthSuccess = async (user: any, role?: string) => {
+  const handleAuthSuccess = async (user: import("firebase/auth").User, role?: string) => {
     const idToken = await user.getIdToken();
     const result = await nextAuthSignIn("credentials", {
       idToken,
@@ -41,9 +41,10 @@ export function useFirebaseAuth() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       await handleAuthSuccess(result.user, role);
-    } catch (err: any) {
-      setError(err.message);
-      toast.error(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -55,9 +56,10 @@ export function useFirebaseAuth() {
     try {
       const result = await signInWithPopup(auth, githubProvider);
       await handleAuthSuccess(result.user, role);
-    } catch (err: any) {
-      setError(err.message);
-      toast.error(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -75,9 +77,10 @@ export function useFirebaseAuth() {
       }
       
       await handleAuthSuccess(result.user);
-    } catch (err: any) {
-      setError(err.message);
-      toast.error(err.message, { duration: 5000 });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      setError(message);
+      toast.error(message, { duration: 5000 });
     } finally {
       setLoading(false);
     }
@@ -111,9 +114,10 @@ export function useFirebaseAuth() {
       // Redirect to login
       router.push("/login?verify=true");
       
-    } catch (err: any) {
-      setError(err.message);
-      toast.error(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
