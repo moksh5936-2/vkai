@@ -11,7 +11,10 @@ export async function GET() {
       DIRECT_URL: !!process.env.DIRECT_URL,
       AUTH_SECRET: !!process.env.AUTH_SECRET,
       NEXTAUTH_URL: process.env.NEXTAUTH_URL || "NOT_SET",
+      CLIENT_SIDE_PROJECT_ID: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "MISSING",
+      SERVER_SIDE_PROJECT_ID: process.env.FIREBASE_ADMIN_PROJECT_ID || "MISSING",
       FIREBASE_ADMIN: {
+        PROJECT_ID_MATCH: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID === process.env.FIREBASE_ADMIN_PROJECT_ID,
         PROJECT_ID: !!process.env.FIREBASE_ADMIN_PROJECT_ID,
         CLIENT_EMAIL: !!process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
         PRIVATE_KEY: !!process.env.FIREBASE_ADMIN_PRIVATE_KEY,
