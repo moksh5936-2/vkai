@@ -15,15 +15,29 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         referralCode: { label: "Referral Code", type: "text" },
       },
       async authorize(credentials) {
-        if (!credentials?.idToken) return null;
+        if (!credentials?.idToken) {
+          console.warn("Auth: No ID Token in credentials.");
+          return null;
+        }
 
         try {
+          if (!adminAuth) {
+            console.error("Auth Error: Firebase Admin SDK not initialized. Missing environment variables?");
+            return null;
+          }
+
           // Verify Firebase token
           const decodedToken = await adminAuth.verifyIdToken(credentials.idToken as string);
-          if (!decodedToken) return null;
+          if (!decodedToken) {
+            console.warn("Auth Error: Token verification failed (returned null).");
+            return null;
+          }
 
           const email = decodedToken.email;
-          if (!email) return null;
+          if (!email) {
+            console.warn("Auth Error: Token verification passed but contains no email.");
+            return null;
+          }
 
           // Check if user exists in Prisma
           let user = await prisma.user.findUnique({
