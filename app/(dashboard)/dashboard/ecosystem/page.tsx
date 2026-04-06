@@ -90,9 +90,12 @@ export default function EcosystemPage() {
                 >
                   Visit Website
                 </a>
-                <button className="btn-ghost py-3 px-6 text-xs font-bold">
+                <a 
+                  href={`mailto:support@vklaunchosai.com?subject=Inquiry regarding Ecosystem Partner: ${encodeURIComponent(m.name)}`}
+                  className="btn-ghost py-3 px-6 text-xs font-bold text-center"
+                >
                   Contact
-                </button>
+                </a>
               </div>
             </GlassCard>
           ))}
