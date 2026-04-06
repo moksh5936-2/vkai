@@ -8,7 +8,7 @@ import AmbientBackground from "@/components/ui/AmbientBackground";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export default function LoginPage() {
-  const { signInWithGoogle, signInWithGithub, signInWithEmail, loading, error } = useFirebaseAuth();
+  const { signInWithGoogle, signInWithEmail, loading, error } = useFirebaseAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -40,12 +40,6 @@ export default function LoginPage() {
             className="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black font-bold text-sm transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
             Sign in with Google
-          </button>
-          <button
-            onClick={() => signInWithGithub()}
-            className="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-[#24292e] text-white border border-white/10 font-bold text-sm transition-transform hover:scale-[1.02] active:scale-[0.98]"
-          >
-            Sign in with GitHub
           </button>
         </div>
 
@@ -96,8 +90,8 @@ export default function LoginPage() {
         </form>
 
         <p className="text-center mt-10 text-xs text-white/40">
-          Don't have an account?{" "}
-          <Link href="/auth/signup" className="text-[#FF3CAC] font-bold hover:underline">
+          Don&apos;t have an account?{" "}
+          <Link href="/signup" className="text-[#FF3CAC] font-bold hover:underline">
             Sign up for free
           </Link>
         </p>

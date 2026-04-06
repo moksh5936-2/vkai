@@ -68,10 +68,16 @@ export function useFirebaseAuth() {
     setError(null);
     try {
       const result = await signInWithEmailAndPassword(auth, email, pass);
+      
+      // Enforce email verification for email access
+      if (!result.user.emailVerified) {
+        throw new Error("Please verify your email address before logging in. Check your inbox for the verification link.");
+      }
+      
       await handleAuthSuccess(result.user);
     } catch (err: any) {
       setError(err.message);
-      toast.error(err.message);
+      toast.error(err.message, { duration: 5000 });
     } finally {
       setLoading(false);
     }
@@ -88,13 +94,23 @@ export function useFirebaseAuth() {
       try {
         const { sendEmailVerification } = await import("@/lib/firebase");
         await sendEmailVerification(result.user);
-        toast.success("Account created! Please check your email to verify.", { duration: 5000 });
+        toast.success("Account created successfully! Please check your email to verify your account.", { duration: 8000 });
       } catch (verifyErr) {
         console.error("Failed to send verification email:", verifyErr);
-        toast.error("Account created, but failed to send verification email.");
+        toast.error("Account created, but failed to send verification email. Please try logging in to trigger a new link.");
       }
 
+      // Create user in Prisma with the requested role
       await handleAuthSuccess(result.user, role);
+      
+      // Immediately sign out to enforce verification before actual use
+      const { signOut: nextSignOut } = await import("next-auth/react");
+      await auth.signOut();
+      await nextSignOut({ redirect: false });
+
+      // Redirect to login
+      router.push("/login?verify=true");
+      
     } catch (err: any) {
       setError(err.message);
       toast.error(err.message);
