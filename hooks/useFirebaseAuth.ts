@@ -81,7 +81,19 @@ export function useFirebaseAuth() {
     setLoading(true);
     setError(null);
     try {
+      // Create the user in Firebase
       const result = await createUserWithEmailAndPassword(auth, email, pass);
+      
+      // Send the verification email immediately
+      try {
+        const { sendEmailVerification } = await import("@/lib/firebase");
+        await sendEmailVerification(result.user);
+        toast.success("Account created! Please check your email to verify.", { duration: 5000 });
+      } catch (verifyErr) {
+        console.error("Failed to send verification email:", verifyErr);
+        toast.error("Account created, but failed to send verification email.");
+      }
+
       await handleAuthSuccess(result.user, role);
     } catch (err: any) {
       setError(err.message);
